@@ -4,12 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Валентинка</title>
-  <script> 
-    function customFunction() {
-        alert('Вы нажали на собственную ссылку!');
-    }</script>
   <style>
-    body{
+    body {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -29,7 +25,7 @@
       padding: 10px 20px;
       font-size: 24px;
       cursor: pointer;
-      border: none; /* Убираем рамку у кнопок */
+      border: none; /* Убрали рамку у кнопок */
       border-radius: 5px; /* Скругляем углы кнопок */
     }
     #yesButton {
@@ -59,7 +55,9 @@
     const yesButton = document.getElementById('yesButton');
     const noButton  = document.getElementById('noButton');
     const coolImage = document.getElementById('coolImage');
-    const loveText = document.getElementById('loveText'); // Получаем элемент текста
+    const loveText = document.getElementById('loveText');
+    
+    let noButtonClickCount = 0; // Счетчик нажатий на кнопку "Нет"
 
     // При клике на "Да" убираем заголовок и кнопки, показываем текст и гифку
     yesButton.addEventListener('click', () => {
@@ -67,15 +65,42 @@
       yesButton.style.display = 'none';
       noButton.style.display = 'none';
       loveText.style.display = 'block'; // Показываем текст
-      coolImage.style.display = 'block';  // показать гифку
+      coolImage.style.display = 'block'; // Показываем гифку
     });
-    // "Убегающая" кнопка "Нет"
-    noButton.addEventListener('mouseover', () => {
-      const x = Math.random() * (window.innerWidth - 100);  // 100 - примерная ширина кнопки
-      const y = Math.random() * (window.innerHeight - 100); // 100 - примерная высота
-      noButton.style.position = 'absolute';
-      noButton.style.left = `${x}px`;
-      noButton.style.top  = `${y}px`;
+
+    // Обработка нажатия кнопки "Нет"
+    noButton.addEventListener('click', () => {
+      noButtonClickCount++;
+        // Перемещаем кнопку "Нет" в случайное место
+        const buttonWidth = noButton.offsetWidth;
+      const buttonHeight = noButton.offsetHeight;
+
+      // Вычисляем максимальные координаты для перемещения кнопки
+      const maxX = window.innerWidth - buttonWidth;
+      const maxY = window.innerHeight - buttonHeight;
+
+      // Генерируем случайные координаты
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+
+      noButton.style.position = 'absolute'; // Изменяем позиционирование на абсолютное
+      noButton.style.left = `${randomX}px`;
+      noButton.style.top = `${randomY}px`;
+      // Увеличиваем размер кнопки "Да"
+      yesButton.style.transform = `scale(${1 + noButtonClickCount * 1})`;
+      
+      // Проверяем, достиг ли счетчик 5
+      if (noButtonClickCount === 5) {
+        // Увеличиваем кнопку "Да" на весь экран
+        yesButton.style.position = 'fixed';
+        yesButton.style.top = '0';
+        yesButton.style.left = '0';
+        yesButton.style.width = '100%';
+        yesButton.style.height = '100%';
+
+        // Скрываем кнопку "Нет"
+        noButton.style.display = 'none';
+      }
     });
   </script>
 </body>
