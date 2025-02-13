@@ -1,30 +1,34 @@
-<!DOCTYPE html> 
-<html lang="ru"> 
-<head> 
-  <meta charset="UTF-8" /> 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
-  <title>Валентинка</title> 
-  <style> 
-    body { 
-      display: flex; 
-      flex-direction: column; 
-      justify-content: center; 
-      align-items: center; 
-      height: 100vh; 
-      font-family: Arial, sans-serif; 
-      margin: 0; 
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Валентинка</title>
+  <script> 
+    function customFunction() {
+        alert('Вы нажали на собственную ссылку!');
+    }</script>
+  <style>
+    body{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      margin: 0;
       background-color: pink; /* Устанавливаем фон розовым */
-    } 
-    img { 
-      display: none; /* Скрыто изначально */ 
+    }
+    img {
+      display: none; /* Скрыто изначально */
       width: 450px;  /* Задаем ширину изображения */
       height: 400px; /* Задаем высоту изображения */
-    } 
-    button { 
-      margin: 10px; 
-      padding: 10px 20px; 
-      font-size: 24px; 
-      cursor: pointer; 
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 24px;
+      cursor: pointer;
       border: none; /* Убираем рамку у кнопок */
       border-radius: 5px; /* Скругляем углы кнопок */
     }
@@ -36,35 +40,57 @@
       background-color: red; /* Красный цвет для кнопки "Нет" */
       color: white; /* Белый цвет текста */
     }
-  </style> 
-</head> 
-<body> 
-  <h1>Хочешь увидеть валентинку?</h1> 
-  <button id="yesButton">Да</button> 
-  <button id="noButton">Нет</button> 
+    #loveText {
+      display: none; /* Скрываем текст изначально */
+      font-size: 32px; /* Размер шрифта текста */
+      color: black; /* Цвет текста */
+      margin: 20px; /* Отступ */
+    }
+  </style>
+</head>
+<body>
+  <h1>Хочешь увидеть валентинку?</h1>
+  <button id="yesButton">Да</button>
+  <button id="noButton">Нет</button>
+  <div id="loveText">I Love You</div> <!-- Новый элемент для текста -->
   <img id="coolImage" src="https://s3.getstickerpack.com/storage/uploads/sticker-pack/myaowl/sticker_21.gif?e43b81060393e9f70c65251330bde6be" />
- 
-  <script> 
-    const yesButton = document.getElementById('yesButton'); 
-    const noButton  = document.getElementById('noButton'); 
-    const coolImage = document.getElementById('coolImage'); 
 
-    // При клике на "Да" убираем заголовок и кнопки, показываем гифку 
-    yesButton.addEventListener('click', () => { 
-      document.querySelector('h1').style.display = 'none'; 
-      yesButton.style.display = 'none'; 
-      noButton.style.display = 'none'; 
-      coolImage.style.display = 'block';  // показать гифку 
-    }); 
+  <script>
+    const yesButton = document.getElementById('yesButton');
+    const noButton  = document.getElementById('noButton');
+    const coolImage = document.getElementById('coolImage');
+    const loveText = document.getElementById('loveText'); // Получаем элемент текста
 
-    // "Убегающая" кнопка "Нет" 
-    noButton.addEventListener('mouseover', () => { 
-      const x = Math.random() * (window.innerWidth - 100);  // 100 - примерная ширина кнопки 
-      const y = Math.random() * (window.innerHeight - 100); // 100 - примерная высота 
-      noButton.style.position = 'absolute'; 
-      noButton.style.left = `${x}px`; 
-      noButton.style.top  = `${y}px`; 
-    }); 
-  </script> 
-</body> 
+    // При клике на "Да" убираем заголовок и кнопки, показываем текст и гифку
+    yesButton.addEventListener('click', () => {
+      document.querySelector('h1').style.display = 'none';
+      yesButton.style.display = 'none';
+      noButton.style.display = 'none';
+      loveText.style.display = 'block'; // Показываем текст
+      coolImage.style.display = 'block';  // показать гифку
+    });
+        // Обработчик нажатий на кнопку "Нет"
+        noButton.addEventListener('click', () => {
+      clickCount++;
+      yesButton.style.transform = `scale(${1 + clickCount * 0.2})`; // Увеличиваем размер кнопки "Да"
+      
+      // Проверяем, достигли ли мы 5 нажатий
+      if (clickCount >= 5) {
+        noButton.style.display = 'none'; // Убираем кнопку "Нет"
+        yesButton.style.width = '100vw'; // Устанавливаем ширину кнопки "Да"
+        yesButton.style.height = '100vh'; // Устанавливаем высоту кнопки "Да"
+        yesButton.style.fontSize = '48px'; // Увеличиваем размер текста кнопки "Да"
+      }
+    });
+
+    // "Убегающая" кнопка "Нет"
+    noButton.addEventListener('mouseover', () => {
+      const x = Math.random() * (window.innerWidth - 100);  // 100 - примерная ширина кнопки
+      const y = Math.random() * (window.innerHeight - 100); // 100 - примерная высота
+      noButton.style.position = 'absolute';
+      noButton.style.left = `${x}px`;
+      noButton.style.top  = `${y}px`;
+    });
+  </script>
+</body>
 </html>
