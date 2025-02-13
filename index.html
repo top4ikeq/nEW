@@ -69,20 +69,6 @@
       loveText.style.display = 'block'; // Показываем текст
       coolImage.style.display = 'block';  // показать гифку
     });
-        // Обработчик нажатий на кнопку "Нет"
-        noButton.addEventListener('click', () => {
-      clickCount++;
-      yesButton.style.transform = `scale(${1 + clickCount * 0.2})`; // Увеличиваем размер кнопки "Да"
-      
-      // Проверяем, достигли ли мы 5 нажатий
-      if (clickCount >= 5) {
-        noButton.style.display = 'none'; // Убираем кнопку "Нет"
-        yesButton.style.width = '100vw'; // Устанавливаем ширину кнопки "Да"
-        yesButton.style.height = '100vh'; // Устанавливаем высоту кнопки "Да"
-        yesButton.style.fontSize = '48px'; // Увеличиваем размер текста кнопки "Да"
-      }
-    });
-
     // "Убегающая" кнопка "Нет"
     noButton.addEventListener('mouseover', () => {
       const x = Math.random() * (window.innerWidth - 100);  // 100 - примерная ширина кнопки
